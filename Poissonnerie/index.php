@@ -1,5 +1,7 @@
 <?php 
+session_start();
 require_once 'authentification.php';
+  isset($_SESSION['isLog']) ? $isLog = true : $isLog = false;
 require_once 'contenu.php';
 
 ?>
@@ -39,14 +41,20 @@ require_once 'contenu.php';
                 </ul>
 
             </div>
+            <?php if(!$isLog){?>
             <div>
             <form action="" method="POST">
                 <input type="text" name="username" id="" placeholder="pseudo">
                 <input type="password" name="password" id="" placeholder="mot de passe">
-                <input type="submit" value="Go">
+                <input type="submit" name="go" value="Go">               
             </form>
             <p><?= $messageErreur ?></p>
             </div>
+            <?php }else{ ?>
+                <form  method="post">
+                    <button type="submit" name="logout">Déconnexion</button>
+                </form>
+                <?php } ?>
         </div>
     </nav>
     <div class="container">

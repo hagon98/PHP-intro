@@ -1,6 +1,6 @@
 <?php 
 
-$isLog = false;
+
 $salt = "079c34ed9f0f9b1ab6a2fb401e023f01";
 
 $users =[
@@ -17,6 +17,19 @@ $users =[
         "password" => "06e230cc73d584415d64d447250dc6ca"
     ],
 ];
+
+$isLog = false;
+
+if(isset($_POST['logout'])){
+    unset($_SESSION['isLog']);
+}
+
+if(
+    isset($_SESSION['isLog']) && $_SESSION['isLog']
+){
+    $isLoggedIn = true;
+}
+
 
 if(
     (isset($_POST["username"]) && isset($_POST["password"])
@@ -43,8 +56,9 @@ if(
 
      if($userExist){
          if($motDePasse == md5($_POST['password'].$salt)){
-            $isLog = true;                    
-
+            $isLog = true;
+           $_SESSION['isLog'] = true;
+           
          }else{
              $messageErreur = 'veuillez renseigner le bon mot de passe';
          }
@@ -56,6 +70,6 @@ if(
 }else{
   $messageErreur = 'veuillez renseigner tous les champs !';
 }
-
-
+// 
+ 
 ?>
